@@ -1,0 +1,35 @@
+| 層         | パッケージ例    | クラス名        | 種別       | 役割                          
+| ---------- | --------------- | --------------- | ---------- | --------------------------- |
+| Controller | `...controller` | AppController   | Controller | 画面遷移・フォーム入力の受付（注文／厨房／売上／会計） 
+| Service    | `...service`    | OrderService    | Service    | 注文登録・未会計取得・会計更新・売上集計を一括担当   
+| Repository | `...repository` | MenuRepository  | Repository | メニューの参照                     
+| Repository | `...repository` | OrderRepository | Repository | 注文の保存・未会計／会計済み注文の取得         
+| Entity     | `...entity`     | Menu            | Entity     | メニュー情報（事前にDB投入・参照専用）        
+| Entity     | `...entity`     | Order           | Entity     | 注文（未会計／会計済みの判定・合計金額算出）      
+| Entity     | `...entity`     | OrderItem       | Entity     | 注文明細（メニュー・数量・単価）            
+| Form / DTO | `...form`       | CreateOrderForm | DTO        | 注文画面の入力受け皿（数量0は未選択扱い）       
+| 初期データ | `resources`     | data.sql        | データ     | メニュー初期データ投入                 
+
+src/main/resources                    src/main/java
+├─ templates                         └─ jp.order.food.spring_food_order_app
+│  ├─ order.html                         ├─ controller
+│  ├─ kitchen.html                       │   └─ AppController.java
+│  └─ sales.html                         │
+│                                          ├─ service
+├─ static                                 │   └─ OrderService.java
+│  ├─ css                                │
+│  │  └─ style.cs                       ├─ repository
+│  └─ img                                │   ├─ MenuRepository.java
+│     └─ logo.png                        │   └─ OrderRepository.java
+│                                          │
+└─ application.properties                 ├─ entity
+                                            │   ├─ Menu.java
+                                            │   ├─ Order.java
+                                            │   └─ OrderItem.java
+                                            │
+                                            └─ form
+                                                 └─ CreateOrderForm.java
+
+H2DB.URL:http://localhost:8080/h2-console
+JDBC.URL:jdbc:h2:file:./data/ramen
+アプリURL: http://localhost:8080(/order:/kitchen:/sales）
